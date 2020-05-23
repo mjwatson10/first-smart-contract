@@ -1,0 +1,19 @@
+pragma solidity 0.5.12;
+
+//interface
+contract HelloWorld{
+    function createPerson(string memory name, uint age, uint height) public payable;
+}
+
+//contract
+contract ExternalContract{
+    
+    HelloWorld instance = HelloWorld(0x70371a21552E8868df8E31520d9689a7b47c7C0a);
+    
+    function externalCreatePerson(string memory name, uint age, uint height) public payable{
+        //CALL createPerson in HelloWorld contract
+        // Forward any ether to HelloWorld contract
+        instance.createPerson.value(msg.value)(name, age, height);
+    }
+    
+}
